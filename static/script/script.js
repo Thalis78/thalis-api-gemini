@@ -165,8 +165,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    if (file.size > 5 * 1024 * 1024) {
-      showToast("A imagem é muito grande (máx: 5MB).");
+    if (file.size > 999 * 1024) {
+      showToast("A imagem é muito grande (no maximo 1mb).");
       return;
     }
 
