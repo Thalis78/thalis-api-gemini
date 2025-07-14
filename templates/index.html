@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Olá, seja bem vindo TNL²</title>
+    <title>TNL² Chat - Gemini Inspired</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Text:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -13,66 +13,19 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
     />
     <script src="https://cdn.tailwindcss.com"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
 
-    <style>
-      @keyframes blink {
-        50% {
-          opacity: 1;
-        }
-      }
-      .typing-dot {
-        opacity: 0.2;
-        animation: blink 1.4s infinite;
-      }
-      .typing-dot:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-      .typing-dot:nth-child(3) {
-        animation-delay: 0.4s;
-      }
-
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background-color: #1f2937;
-      }
-      ::-webkit-scrollbar-thumb {
-        background-color: #4b5563;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background-color: #6b7280;
-      }
-
-      .message-bubble ul {
-        list-style-type: disc;
-        padding-left: 1.5rem;
-      }
-      .message-bubble ol {
-        list-style-type: decimal;
-        padding-left: 1.5rem;
-      }
-      .message-bubble a {
-        color: #60a5fa;
-        text-decoration: underline;
-      }
-      .message-bubble p {
-        margin-bottom: 0.5rem;
-      }
-      .message-bubble p:last-child {
-        margin-bottom: 0;
-      }
-    </style>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
   </head>
 
   <body
-    class="bg-gray-900 text-gray-100 font-sans flex flex-col h-screen overflow-hidden"
+    class="bg-neutral-950 text-neutral-100 font-sans flex flex-col h-screen overflow-hidden"
   >
     <div
       id="toast"
@@ -81,24 +34,24 @@
     ></div>
 
     <header
-      class="bg-gradient-to-r from-gray-900 to-black py-4 px-6 shadow-lg flex items-center justify-center w-full z-10 border-b border-gray-700/50"
+      class="bg-neutral-900 py-4 px-6 shadow-lg flex items-center justify-center w-full z-10 border-b border-neutral-800"
     >
       <h1 class="text-2xl font-bold tracking-wider text-white">TNL² CHAT</h1>
     </header>
 
-    <div class="flex flex-col flex-grow bg-gray-800 overflow-hidden">
+    <div class="flex flex-col flex-grow bg-neutral-950 overflow-hidden">
       <main
         id="chatContainer"
-        class="flex-grow overflow-y-auto p-4 sm:p-6 space-y-8"
+        class="flex-grow overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8"
       ></main>
 
-      <footer class="p-4 bg-gray-800 border-t border-gray-700/50">
+      <footer class="p-4 bg-neutral-900 border-t border-neutral-800">
         <div id="imagePreviewContainer" class="px-2 pb-3 hidden">
           <div class="relative inline-block group">
             <img
               id="imagePreview"
               alt="Pré-visualização da imagem"
-              class="max-w-[150px] max-h-[120px] object-cover rounded-lg border-2 border-gray-600"
+              class="max-w-[150px] max-h-[120px] object-cover rounded-lg border-2 border-neutral-700"
             />
             <button
               id="removeImageBtn"
@@ -113,13 +66,13 @@
 
         <form
           id="chatForm"
-          class="flex items-end gap-2 bg-gray-700 rounded-xl p-2 shadow-inner ring-1 ring-gray-600/50 mx-auto max-w-4xl"
+          class="flex items-end gap-3 bg-neutral-800 rounded-3xl p-3 shadow-xl ring-1 ring-neutral-700/50 mx-auto max-w-4xl"
           autocomplete="off"
         >
           <label
             for="imageInput"
             aria-label="Anexar imagem"
-            class="cursor-pointer p-2 text-gray-400 hover:text-white hover:bg-gray-600 rounded-full transition-colors"
+            class="cursor-pointer p-2 text-neutral-400 hover:text-white hover:bg-neutral-700 rounded-full transition-colors duration-200"
             title="Anexar imagem"
           >
             <svg
@@ -132,44 +85,45 @@
               stroke-linejoin="round"
             >
               <path
-                d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.59a2 2 0 01-2.83-2.83l8.49-8.48"
-              ></path>
+                d="M14.5 4L19 8.5V20a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h5.5L14.5 4z"
+              />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="12" y1="18" x2="12" y2="12" />
+              <line x1="9" y1="15" x2="15" y2="15" />
             </svg>
           </label>
           <textarea
             id="promptInput"
             rows="1"
-            placeholder="Mensagem para TNL²... (ou cole uma imagem)"
-            class="flex-grow resize-none bg-transparent py-2.5 px-3 text-gray-200 placeholder-gray-500 focus:outline-none text-base leading-tight max-h-48"
+            placeholder="Mensagem para TNL²..."
+            class="flex-grow resize-none bg-transparent py-2.5 px-3 text-neutral-200 placeholder-neutral-500 focus:outline-none text-base leading-tight max-h-48"
           ></textarea>
           <button
             type="submit"
             aria-label="Enviar mensagem"
-            class="p-3 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700 transition-all disabled:bg-gray-600 disabled:cursor-not-allowed disabled:shadow-none flex-shrink-0"
+            class="p-3 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700 transition-all duration-200 disabled:bg-neutral-700 disabled:text-neutral-500 disabled:cursor-not-allowed disabled:shadow-none flex-shrink-0"
             title="Enviar"
             disabled
           >
             <svg
               class="w-6 h-6"
-              xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
+              stroke="none"
             >
-              <path
-                d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"
-              />
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
             </svg>
           </button>
         </form>
         <small
-          class="text-center block text-xs text-gray-500 mt-3 font-medium select-none tracking-wide"
+          class="text-center block text-xs text-neutral-500 mt-3 font-medium select-none tracking-wide"
         >
           Desenvolvido por
           <a
             href="https://github.com/thalissonmoura"
             target="_blank"
             rel="noopener noreferrer"
-            class="hover:underline text-gray-400"
+            class="hover:underline text-neutral-400"
             >Thalisson Moura</a
           >
         </small>
@@ -177,290 +131,6 @@
     </div>
 
     <input type="file" id="imageInput" accept="image/*" class="hidden" />
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const socket = io();
-        const DOM = {
-          chatContainer: document.getElementById("chatContainer"),
-          promptInput: document.getElementById("promptInput"),
-          chatForm: document.getElementById("chatForm"),
-          sendButton: document.querySelector('#chatForm button[type="submit"]'),
-          imageInput: document.getElementById("imageInput"),
-          imagePreviewContainer: document.getElementById(
-            "imagePreviewContainer"
-          ),
-          imagePreview: document.getElementById("imagePreview"),
-          removeImageBtn: document.getElementById("removeImageBtn"),
-          toast: document.getElementById("toast"),
-        };
-        let attachedFile = null;
-        let typingIndicatorElement = null;
-
-        const renderer = new marked.Renderer();
-        renderer.code = function (code, lang) {
-          const randomId = `code-${Math.random().toString(36).substring(2, 9)}`;
-          const highlightedCode = hljs.getLanguage(lang)
-            ? hljs.highlight(code, { language: lang, ignoreIllegals: true })
-                .value
-            : hljs.highlightAuto(code).value;
-
-          return `
-            <div class="code-block relative bg-[#0d1117] rounded-lg my-4">
-              <div class="flex justify-between items-center bg-gray-900 px-4 py-1.5 rounded-t-md border-b border-gray-700">
-                <span class="text-gray-400 text-xs font-semibold select-none">${
-                  lang || "código"
-                }</span>
-                <button data-clipboard-target="#${randomId}" class="copy-code-btn flex items-center gap-2 text-xs text-gray-300 hover:text-white transition">
-                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M7 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2H7zM6 4a1 1 0 011-1h8a1 1 0 011 1v12a1 1 0 01-1 1H7a1 1 0 01-1-1V4z"></path></svg>
-                  <span>Copiar</span>
-                </button>
-              </div>
-              <pre class="p-4 overflow-x-auto"><code id="${randomId}" class="language-${lang}">${highlightedCode}</code></pre>
-            </div>`;
-        };
-        marked.setOptions({ renderer: renderer, gfm: true, breaks: true });
-
-        const showToast = (message, duration = 4000) => {
-          DOM.toast.textContent = message;
-          DOM.toast.classList.replace("opacity-0", "opacity-100");
-          setTimeout(
-            () => DOM.toast.classList.replace("opacity-100", "opacity-0"),
-            duration
-          );
-        };
-
-        const scrollToBottom = () => {
-          DOM.chatContainer.scrollTop = DOM.chatContainer.scrollHeight;
-        };
-
-        const adjustTextareaHeight = () => {
-          DOM.promptInput.style.height = "auto";
-          DOM.promptInput.style.height = `${DOM.promptInput.scrollHeight}px`;
-        };
-
-        const checkSendButtonStatus = () => {
-          DOM.sendButton.disabled =
-            DOM.promptInput.value.trim() === "" && !attachedFile;
-        };
-
-        const createMessageElement = (message, sender) => {
-          const messageWrapper = document.createElement("div");
-          messageWrapper.className = `flex items-start gap-3 w-full max-w-4xl mx-auto ${
-            sender === "user" ? "justify-end" : "justify-start"
-          }`;
-
-          const avatar = document.createElement("div");
-          avatar.className =
-            "flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg select-none";
-
-          const messageBubble = document.createElement("div");
-          messageBubble.className = `p-4 rounded-xl max-w-[85%] break-words message-bubble`;
-
-          if (sender === "user") {
-            avatar.textContent = "VC";
-            avatar.className += " bg-blue-600 text-white order-2";
-            messageBubble.className +=
-              " bg-blue-600 text-white rounded-br-none order-1";
-          } else {
-            avatar.textContent = "AI";
-            avatar.className += " bg-gray-600 text-gray-200";
-            messageBubble.className +=
-              " bg-gray-700 text-gray-200 rounded-bl-none";
-          }
-
-          const sanitizedHtml = DOMPurify.sanitize(
-            marked.parse(message || ""),
-            {
-              ADD_TAGS: ["button", "svg", "path", "pre", "code", "img"],
-              ADD_ATTR: [
-                "data-clipboard-target",
-                "class",
-                "id",
-                "viewbox",
-                "fill",
-                "stroke",
-                "stroke-width",
-                "stroke-linecap",
-                "stroke-linejoin",
-                "points",
-                "alt",
-                "src",
-              ],
-            }
-          );
-          messageBubble.innerHTML = sanitizedHtml;
-
-          messageWrapper.appendChild(avatar);
-          messageWrapper.appendChild(messageBubble);
-          DOM.chatContainer.appendChild(messageWrapper);
-
-          messageBubble
-            .querySelectorAll(".copy-code-btn")
-            .forEach(addCopyListener);
-          scrollToBottom();
-        };
-
-        const showTypingIndicator = () => {
-          if (typingIndicatorElement) return;
-          const indicatorHTML = `
-                <div class="flex items-start gap-3 w-full max-w-4xl mx-auto justify-start ai-typing-indicator">
-                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg select-none bg-gray-600 text-gray-200">AI</div>
-                    <div class="p-4 rounded-xl bg-gray-700 rounded-bl-none flex items-center space-x-1">
-                        <span class="typing-dot w-2 h-2 bg-gray-400 rounded-full"></span>
-                        <span class="typing-dot w-2 h-2 bg-gray-400 rounded-full"></span>
-                        <span class="typing-dot w-2 h-2 bg-gray-400 rounded-full"></span>
-                    </div>
-                </div>`;
-          DOM.chatContainer.insertAdjacentHTML("beforeend", indicatorHTML);
-          typingIndicatorElement = DOM.chatContainer.querySelector(
-            ".ai-typing-indicator"
-          );
-          scrollToBottom();
-        };
-
-        const removeTypingIndicator = () => {
-          if (typingIndicatorElement) {
-            typingIndicatorElement.remove();
-            typingIndicatorElement = null;
-          }
-        };
-
-        const handleFile = (file) => {
-          if (!file || !file.type.startsWith("image/")) return;
-
-          if (file.size > 5 * 1024 * 1024) {
-            showToast("A imagem é muito grande (máx: 5MB).");
-            return;
-          }
-
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            DOM.imagePreview.src = e.target.result;
-            DOM.imagePreviewContainer.classList.remove("hidden");
-            attachedFile = e.target.result;
-            checkSendButtonStatus();
-            scrollToBottom();
-          };
-          reader.onerror = () => showToast("Erro ao ler a imagem.");
-          reader.readAsDataURL(file);
-        };
-
-        DOM.promptInput.addEventListener("input", () => {
-          adjustTextareaHeight();
-          checkSendButtonStatus();
-        });
-
-        DOM.promptInput.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            DOM.chatForm.requestSubmit();
-          }
-        });
-
-        DOM.promptInput.addEventListener("paste", (e) => {
-          const items = e.clipboardData.items;
-          for (const item of items) {
-            if (item.type.indexOf("image") !== -1) {
-              const file = item.getAsFile();
-              handleFile(file);
-              e.preventDefault();
-              break;
-            }
-          }
-        });
-
-        DOM.imageInput.addEventListener("change", (e) =>
-          handleFile(e.target.files[0])
-        );
-
-        DOM.removeImageBtn.addEventListener("click", () => {
-          DOM.imageInput.value = "";
-          DOM.imagePreview.src = "";
-          DOM.imagePreviewContainer.classList.add("hidden");
-          attachedFile = null;
-          checkSendButtonStatus();
-        });
-
-        DOM.chatForm.addEventListener("submit", (e) => {
-          e.preventDefault();
-          const userMessageText = DOM.promptInput.value.trim();
-          if (!userMessageText && !attachedFile) return;
-
-          let finalMessageContent = userMessageText;
-
-          if (attachedFile) {
-            const imgHtml = `\n\n<img src="${attachedFile}" alt="Anexo" class="mt-2 rounded-lg max-w-full h-auto object-contain max-h-[250px]" />`;
-            finalMessageContent += imgHtml;
-          }
-
-          if (finalMessageContent) {
-            createMessageElement(finalMessageContent, "user");
-          }
-
-          socket.emit("enviar_mensagem", {
-            mensagem: userMessageText,
-            arquivo: attachedFile,
-          });
-
-          DOM.promptInput.value = "";
-          DOM.removeImageBtn.click();
-          adjustTextareaHeight();
-          showTypingIndicator();
-        });
-
-        const addCopyListener = (button) => {
-          if (button.dataset.listenerAttached) return;
-          button.dataset.listenerAttached = "true";
-          button.addEventListener("click", () => {
-            const codeElement = document.querySelector(
-              button.dataset.clipboardTarget
-            );
-            if (codeElement) {
-              navigator.clipboard.writeText(codeElement.innerText).then(() => {
-                const span = button.querySelector("span");
-                const svg = button.querySelector("svg");
-                const originalText = span.textContent;
-                span.textContent = "Copiado!";
-                svg.innerHTML =
-                  '<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>';
-                svg.classList.add("text-green-400");
-                setTimeout(() => {
-                  span.textContent = originalText;
-                  svg.innerHTML =
-                    '<path d="M7 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2H7zM6 4a1 1 0 011-1h8a1 1 0 011 1v12a1 1 0 01-1 1H7a1 1 0 01-1-1V4z"></path>';
-                  svg.classList.remove("text-green-400");
-                }, 2000);
-              });
-            }
-          });
-        };
-
-        socket.on("connect", () =>
-          console.log("Conectado ao servidor Socket.IO")
-        );
-        socket.on("disconnect", () => showToast("Desconectado do servidor."));
-        socket.on("connect_error", (err) =>
-          showToast(`Erro de conexão: ${err.message}`)
-        );
-
-        socket.on("resposta_servidor", (data) => {
-          removeTypingIndicator();
-          if (data.resposta) createMessageElement(data.resposta, "ai");
-          else showToast("Resposta inválida do servidor.");
-        });
-
-        const showWelcomeMessage = () => {
-          createMessageElement(
-            "**Olá! Seja bem-vindo ao TNL² CHAT.**\nComo posso te ajudar hoje?",
-            "ai"
-          );
-        };
-
-        showWelcomeMessage();
-        adjustTextareaHeight();
-        checkSendButtonStatus();
-        DOM.promptInput.focus();
-      });
-    </script>
+    <script src="{{ url_for('static', filename='script/script.js') }}"></script>
   </body>
 </html>
